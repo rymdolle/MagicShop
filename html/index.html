@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Magic shop</h1>
+    <form name="user" action="/api/user" method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" placeholder="ex. John Doe" required>
+        <label for="email">Email:</label>
+        <input type="text" name="email" id="email" placeholder="ex. John.Doe@example.com" required>
+        <button type="submit">Create user</button>
+    </form>
+    <table id="userTable">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+    </table>
+    <script src="script.js"></script>
+</body>
+</html>
