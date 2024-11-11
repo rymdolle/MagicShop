@@ -6,6 +6,13 @@ $ docker run --detach --name mariadb --env MARIADB_ROOT_PASSWORD=your-secret-pw 
 ```
 
 ## Connect and create database and table.
+
+### Copy TSV file
+```
+$ docker cp items.tsv mariadb:/tmp
+```
+
+### Connect to database
 ```
 $ docker exec -it mariadb mariadb --user root --password
 ```
@@ -32,9 +39,13 @@ CREATE TABLE IF NOT EXISTS item (
     description TEXT,
     price DECIMAL(10,2) NOT NULL
 );
-```
 
-Import [data.sql](sql/data.sql)
+LOAD DATA INFILE '/tmp/items.tsv'
+REPLACE INTO TABLE item
+FIELDS TERMINATED BY '\t'
+IGNORE 1 LINES
+(name, description, price);
+```
 
 ## Create a `.env` file with database credentials
 
