@@ -8,12 +8,13 @@ const listenPort = process.env.PORT || 3000;
 
 const userRoutes = require('./routes/user');
 const itemRoutes = require('./routes/item');
+const orderRoutes = require('./routes/order');
 
 const db = mysql.createConnection({
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',
     password: process.env.DB_PASS || 'your-secret-pw',
-    database: process.env.DB_NAME || 'nodejs_rest_demo',
+    database: process.env.DB_NAME || 'magic_shop',
     decimalNumbers: true,
 });
 
@@ -33,6 +34,7 @@ app.use((req, res, next) => {
 app.use(express.static('html'));
 app.use('/api', userRoutes);
 app.use('/api', itemRoutes);
+app.use('/api', orderRoutes);
 
 app.listen(listenPort, () => {
     console.log(`Started express on http://localhost:${listenPort}`);
