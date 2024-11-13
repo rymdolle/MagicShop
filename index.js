@@ -27,10 +27,14 @@ db.connect(err => {
 });
 
 app.use(express.json());
+
+// Middleware to add db connection to requests
 app.use((req, res, next) => {
     req.db = db;
     next();
 });
+
+// Setup routes
 app.use(express.static('html'));
 app.use('/api', userRoutes);
 app.use('/api', itemRoutes);

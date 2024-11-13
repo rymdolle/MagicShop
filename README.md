@@ -87,5 +87,5 @@ DB_NAME='magic_shop'
 
 ```
 npm install
-npm run start
+npm run server
 ```
