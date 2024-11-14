@@ -14,12 +14,17 @@ const db = mysql.createConnection({
     decimalNumbers: true,
 });
 
+console.log('Connecting to database...');
 db.connect(err => {
     if (err) {
-        return console.error('Database connection error:', err);
+        console.error('Database connection error:', err)
+        throw err;
     }
 
     console.log('Connected to database');
+    app.listen(listenPort, () => {
+        console.log(`Started express on http://localhost:${listenPort}`);
+    });
 });
 
 app.set('json spaces', 2); // pretty print json replies for readability
