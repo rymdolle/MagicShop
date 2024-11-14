@@ -72,8 +72,8 @@ document.forms.order.addEventListener('submit', event => {
     })
     .then(order => {
         console.log('Submission success', order);
-        document.forms.order.reset();
-        setPageError(JSON.stringify(order));
+        event.target.reset();
+        setPageError(JSON.stringify(order, null, 2));
     })
     .catch(error => {
         console.error('Error:', error);
