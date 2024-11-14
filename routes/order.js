@@ -22,9 +22,10 @@ router.post('/order', async (req, res) => {
     if (items.length === 0)
         return res.status(400).json({error: 'No items in cart'});
 
+    const pool = req.db.promise();
     try {
         // Create order
-        const pool = req.db.promise();
+        await pool.beginTransaction()
         const orderId = await createOrder(pool, user);
 
         // Create all order items
@@ -36,10 +37,14 @@ router.post('/order', async (req, res) => {
         await pool.query('UPDATE orders SET total = (SELECT SUM(order_item.price * order_item.quantity) AS total FROM order_item WHERE order_id = orders.id) WHERE id = ?', [orderId]);
 
         const order = await getOrder(pool, orderId);
+
+        await pool.commit();
+
         // Set location and return the new order
         res.location(`/api/order/${order.id}`);
         res.status(201).json(order);
     } catch (err) {
+        await pool.rollback();
         console.error(err);
         res.status(500).json({error: err});
     }
