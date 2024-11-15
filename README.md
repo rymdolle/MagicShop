@@ -43,3 +43,5 @@ DB_NAME='magic_shop'
 npm install
 npm run server
 ```
+
+View [Endpoints](routes/README.md) if you want to use the API.
